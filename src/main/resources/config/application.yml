@@ -1,0 +1,28 @@
+spring:
+  datasource:
+    driver-class-name: org.postgresql.Driver
+    url: jdbc:postgresql://localhost:5433/homeapp
+    username: appdata
+    password: 1234
+  jpa:
+    database: postgresql
+    database-platform: org.hibernate.dialect.PostgreSQL15Dialect
+    show-sql: true
+    properties:
+      hibernate:
+        dialect: org.hibernate.dialect.H2Dialect
+        jdbc:
+          lob:
+            non_contextual_creation: true
+  h2:
+    console:
+      enabled: true
+      settings:
+        web-allow-others: false
+  liquibase:
+    change-log: classpath:db/changelog/liquibase/master.xml
+server:
+  port: 8189
+  servlet:
+    context-path: /api
+
