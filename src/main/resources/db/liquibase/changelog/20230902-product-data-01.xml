@@ -1,0 +1,35 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<databaseChangeLog
+        xmlns="http://www.liquibase.org/xml/ns/dbchangelog"
+        xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+        xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-3.8.xsd">
+
+    <changeSet id="20230902-product-data-01" author="safronov">
+        <sql>
+            INSERT INTO product (id, title, price)
+            VALUES
+                (REPLACE(CAST(gen_random_uuid() AS VARCHAR), '-', ''), 'Сковорода', 1500.00),
+                (REPLACE(CAST(gen_random_uuid() AS VARCHAR), '-', ''), 'Кастрюля', 1200.00),
+                (REPLACE(CAST(gen_random_uuid() AS VARCHAR), '-', ''), 'Терка', 300.00),
+                (REPLACE(CAST(gen_random_uuid() AS VARCHAR), '-', ''), 'Нож', 700.00),
+                (REPLACE(CAST(gen_random_uuid() AS VARCHAR), '-', ''), 'Доска для нарезки', 500.00),
+                (REPLACE(CAST(gen_random_uuid() AS VARCHAR), '-', ''), 'Ложка', 100.00),
+                (REPLACE(CAST(gen_random_uuid() AS VARCHAR), '-', ''), 'Венчик', 200.00),
+                (REPLACE(CAST(gen_random_uuid() AS VARCHAR), '-', ''), 'Тарелка', 250.00),
+                (REPLACE(CAST(gen_random_uuid() AS VARCHAR), '-', ''), 'Чашка', 150.00),
+                (REPLACE(CAST(gen_random_uuid() AS VARCHAR), '-', ''), 'Бокал', 350.00),
+                (REPLACE(CAST(gen_random_uuid() AS VARCHAR), '-', ''), 'Салфетки', 100.00),
+                (REPLACE(CAST(gen_random_uuid() AS VARCHAR), '-', ''), 'Миска', 400.00),
+                (REPLACE(CAST(gen_random_uuid() AS VARCHAR), '-', ''), 'Бутылка для воды', 450.00),
+                (REPLACE(CAST(gen_random_uuid() AS VARCHAR), '-', ''), 'Контейнер для хранения', 600.00),
+                (REPLACE(CAST(gen_random_uuid() AS VARCHAR), '-', ''), 'Сотейник', 1600.00),
+                (REPLACE(CAST(gen_random_uuid() AS VARCHAR), '-', ''), 'Столовые приборы', 800.00),
+                (REPLACE(CAST(gen_random_uuid() AS VARCHAR), '-', ''), 'Термос', 1000.00),
+                (REPLACE(CAST(gen_random_uuid() AS VARCHAR), '-', ''), 'Сито', 350.00),
+                (REPLACE(CAST(gen_random_uuid() AS VARCHAR), '-', ''), 'Мерная чаша', 400.00),
+                (REPLACE(CAST(gen_random_uuid() AS VARCHAR), '-', ''), 'Крышка для кастрюли', 300.00);
+        </sql>
+    </changeSet>
+
+</databaseChangeLog>

@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<databaseChangeLog
+        xmlns="http://www.liquibase.org/xml/ns/dbchangelog"
+        xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+        xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-3.8.xsd">
+
+    <changeSet id="20230831-init-01" author="safronov">
+        <sql>
+            create table product
+            (
+                id    varchar(32)
+                    constraint "Product_pk"
+                        primary key,
+                title varchar(128)   not null,
+                price NUMERIC(12, 2) not null
+            );
+
+        </sql>
+    </changeSet>
+
+</databaseChangeLog>
