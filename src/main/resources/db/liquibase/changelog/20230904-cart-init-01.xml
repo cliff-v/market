@@ -1,0 +1,41 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<databaseChangeLog
+        xmlns="http://www.liquibase.org/xml/ns/dbchangelog"
+        xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+        xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-3.8.xsd">
+
+    <changeSet id="20230904-cart-init-01" author="safronov">
+        <sql>
+            create table CART
+            (
+                id    varchar(32)
+                    constraint "cart_pk"
+                        primary key,
+                create_date date,
+                created_by varchar(32),
+                discount_code varchar(255),
+                discount_amount decimal(12,2), --сумма скидки
+                amount decimal(12,2)
+            );
+        </sql>
+    </changeSet>
+
+    <changeSet id="20230904-cart-init-02" author="safronov">
+        <sql>
+            create table CART_ITEMS
+            (
+                id    varchar(32)
+                    constraint "cart_pk"
+                        primary key,
+                cart_id varchar(32) not null
+                    constraint CART_ITEMS_CART_ID REFERENCES CART(id),
+                product_id varchar(32) not null
+                    constraint CART_ITEMS_PRODUCT_ID REFERENCES products(id),
+                quantity INT NOT NULL,                 -- Количество товара
+                price DECIMAL(12,2) NOT NULL, --цена на момент добавления
+            );
+        </sql>
+    </changeSet>
+
+</databaseChangeLog>
