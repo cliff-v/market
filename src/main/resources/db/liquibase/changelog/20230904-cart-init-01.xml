@@ -17,7 +17,7 @@
                 discount_code varchar(255),
                 discount_amount decimal(12,2), --сумма скидки
                 amount decimal(12,2)
-            );
+            )
         </sql>
     </changeSet>
 
@@ -25,16 +25,14 @@
         <sql>
             create table CART_ITEMS
             (
-                id    varchar(32)
-                    constraint "cart_pk"
-                        primary key,
+                id varchar(32) primary key,
                 cart_id varchar(32) not null
                     constraint CART_ITEMS_CART_ID REFERENCES CART(id),
                 product_id varchar(32) not null
-                    constraint CART_ITEMS_PRODUCT_ID REFERENCES products(id),
+                    constraint CART_ITEMS_PRODUCT_ID REFERENCES product(id),
                 quantity INT NOT NULL,                 -- Количество товара
-                price DECIMAL(12,2) NOT NULL, --цена на момент добавления
-            );
+                price DECIMAL(12,2) NOT NULL --цена на момент добавления
+            )
         </sql>
     </changeSet>
 
