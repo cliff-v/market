@@ -1,0 +1,41 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<databaseChangeLog
+        xmlns="http://www.liquibase.org/xml/ns/dbchangelog"
+        xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+        xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-3.8.xsd">
+
+    <changeSet id="20230904-cart-data-01" author="safronov">
+        <sql>
+            INSERT INTO cart (id, created_by)
+            VALUES
+                (REPLACE(CAST(gen_random_uuid() AS VARCHAR), '-', ''), 'safronov')
+        ;
+        </sql>
+    </changeSet>
+
+    <changeSet id="20230904-cart-data-02" author="safronov">
+        <sql>
+            INSERT INTO cart_items (id, cart_id, product_id, quantity, price)
+            VALUES (REPLACE(CAST(gen_random_uuid() AS VARCHAR), '-', ''),
+                            'b4e6c2f3a45c4978acb3f76ac03c413d',
+                            '725fd59b40f5485c8515e22ec616e35f',
+                            3, 100),
+                    (REPLACE(CAST(gen_random_uuid() AS VARCHAR), '-', ''),
+                             'b4e6c2f3a45c4978acb3f76ac03c413d',
+                             '0569765ae35c47c8ab6ab24949b208be',
+                             1, 100),
+                     (REPLACE(CAST(gen_random_uuid() AS VARCHAR), '-', ''),
+                              'b4e6c2f3a45c4978acb3f76ac03c413d',
+                              'c6a92f51716b4a54ac28d8e566e73668',
+                              1, 300),
+                      (REPLACE(CAST(gen_random_uuid() AS VARCHAR), '-', ''),
+                               'b4e6c2f3a45c4978acb3f76ac03c413d',
+                               '979be0b476224603a9be89732a0a0d49',
+                               7, 100)
+            ;
+        </sql>
+    </changeSet>
+
+
+</databaseChangeLog>

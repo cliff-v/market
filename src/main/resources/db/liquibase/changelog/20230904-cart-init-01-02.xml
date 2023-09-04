@@ -12,7 +12,7 @@
                 id    varchar(32)
                     constraint "cart_pk"
                         primary key,
-                create_date date,
+                create_date TIMESTAMP DEFAULT NOW(),
                 created_by varchar(32),
                 discount_code varchar(255),
                 discount_amount decimal(12,2), --сумма скидки
