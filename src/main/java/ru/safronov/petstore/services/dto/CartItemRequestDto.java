@@ -11,7 +11,8 @@ import java.math.BigDecimal;
 @Builder
 @NoArgsConstructor
 @AllArgsConstructor
-public class CartItemDto {
-    protected String title;
+public class CartItemRequestDto {
+    protected String cartId;
+    protected String productId;
     protected BigDecimal quantity;
 }

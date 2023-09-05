@@ -4,7 +4,7 @@ import jakarta.persistence.*;
 import lombok.*;
 
 import java.math.BigDecimal;
-import java.time.LocalDate;
+import java.time.LocalDateTime;
 import java.util.List;
 
 @Entity
@@ -15,10 +15,7 @@ import java.util.List;
 @Table(name = "cart")
 public class Cart extends BaseUuidEntity {
     @Column(name = "create_date")
-    protected LocalDate createDate;
-
-    @Column(name = "created_by")
-    protected String createdBy;
+    protected LocalDateTime createDate;
 
     @Column(name = "discount_code")
     protected String discountCode;
@@ -26,7 +23,10 @@ public class Cart extends BaseUuidEntity {
     @Column(name = "discount_amount")
     protected BigDecimal discountAmount;
 
-    @OneToMany(mappedBy = "cartId", cascade = CascadeType.ALL, orphanRemoval = true)
+    @OneToMany(mappedBy = "cart", cascade = CascadeType.ALL, orphanRemoval = true)
     protected List<CartItem> cartItems;
+
+    @Column(name = "updated_date")
+    protected LocalDateTime updatedDate;
 
 }

@@ -10,8 +10,7 @@ import ru.safronov.petstore.services.dto.CartItemDto;
 @Mapper(componentModel = "spring")
 public interface CartItemMapper extends DTOMapper<CartItemDto, CartItem> {
     @Mappings(value = {
-            @Mapping(source = "productId.title", target = "title"),
-            @Mapping(source = "price", target = "actualPrice")
+            @Mapping(source = "product.title", target = "title")
     })
     CartItemDto toDto(CartItem cartItem);
 }

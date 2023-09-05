@@ -2,14 +2,10 @@ package ru.safronov.petstore.controllers;
 
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
+import ru.safronov.petstore.services.dto.CartItemRequestDto;
 import ru.safronov.petstore.services.dto.CartDto;
 import ru.safronov.petstore.services.CartService;
-
-import java.util.Optional;
 
 @RestController
 @RequestMapping(path = "/api/cart")
@@ -21,5 +17,11 @@ public class CartController {
         return cartService.getCart(cartId)
                 .map(ResponseEntity::ok)
                 .orElseGet(() -> ResponseEntity.notFound().build());
+    }
+
+    @PatchMapping(path = "/add")
+    public ResponseEntity<?> addProductToCart(@RequestBody CartItemRequestDto cartItemRequestDto) {
+        cartService.addProductToCart(cartItemRequestDto);
+        return ResponseEntity.ok().build();
     }
 }
