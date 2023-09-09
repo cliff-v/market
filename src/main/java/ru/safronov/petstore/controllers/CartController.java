@@ -20,8 +20,22 @@ public class CartController {
     }
 
     @PatchMapping(path = "/add")
-    public ResponseEntity<?> addProductToCart(@RequestBody CartItemRequestDto cartItemRequestDto) {
-        cartService.addProductToCart(cartItemRequestDto);
-        return ResponseEntity.ok().build();
+    public ResponseEntity<CartDto> addProductToCart(@RequestBody CartItemRequestDto cartItemRequestDto) {
+        return ResponseEntity.ok(cartService.addProductToCart(cartItemRequestDto));
+    }
+
+    @PatchMapping(path = "/subtract")
+    public ResponseEntity<CartDto> subtractProductFromCart(@RequestBody CartItemRequestDto cartItemRequestDto) {
+        return ResponseEntity.ok(cartService.subtractProduct(cartItemRequestDto));
+    }
+
+    @PatchMapping(path = "/remove_product")
+    public ResponseEntity<CartDto> removeProductFromCart(@RequestBody CartItemRequestDto cartItemRequestDto) {
+        return ResponseEntity.ok(cartService.removeProduct(cartItemRequestDto));
+    }
+
+    @DeleteMapping(path = "/{cartId}/clear")
+    public ResponseEntity<CartDto> clearCart(@PathVariable String cartId) {
+        return ResponseEntity.ok(cartService.clearCart(cartId));
     }
 }

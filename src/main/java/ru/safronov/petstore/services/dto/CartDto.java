@@ -15,6 +15,5 @@ import java.util.List;
 public class CartDto {
     protected String id;
     protected LocalDateTime createDate;
-    protected String createBy;
     protected List<CartItemDto> cartItems;
 }
