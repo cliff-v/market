@@ -39,6 +39,7 @@ public class JwtRequestFilter extends OncePerRequestFilter {
 
         if(authHeader == null || !authHeader.startsWith("Bearer")) {
             filterChain.doFilter(request, response);
+            log.info("The token is expired");
             return;
         }
 
