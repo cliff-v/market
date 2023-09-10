@@ -2,6 +2,7 @@ package ru.safronov.petstore.controllers.errors;
 
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.authentication.BadCredentialsException;
 import org.springframework.web.bind.annotation.ControllerAdvice;
 import org.springframework.web.bind.annotation.ExceptionHandler;
 import org.zalando.problem.Problem;
@@ -38,6 +39,16 @@ public class ProductAdvice {
                 .body(Problem.builder()
                         .withType(Problem.DEFAULT_TYPE)
                         .withTitle(e.getMessage())
+                        .build()
+                );
+    }
+
+    @ExceptionHandler()
+    public ResponseEntity<Problem> argumentNotValidHande(BadCredentialsException e) {
+        return ResponseEntity.status(HttpStatus.UNAUTHORIZED)
+                .body(Problem.builder()
+                        .withType(Problem.DEFAULT_TYPE)
+                        .withTitle("Некорректный логин или пароль")
                         .build()
                 );
     }
