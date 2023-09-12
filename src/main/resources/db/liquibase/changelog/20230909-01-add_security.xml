@@ -1,0 +1,53 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<databaseChangeLog
+        xmlns="http://www.liquibase.org/xml/ns/dbchangelog"
+        xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+        xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-3.8.xsd">
+
+    <changeSet id="20230909-01-add_security" author="safronov">
+        <sql>
+            create table users (
+                                   id         varchar(32) primary key,
+                                   username   varchar(36) not null,
+                                   password   varchar(80) not null,
+                                   email      varchar(50) unique,
+                                   created_at timestamp default NOW(),
+                                   updated_at timestamp default NOW()
+            );
+
+            create table roles (
+                                   id         varchar(32) primary key,
+                                   name       varchar(50) not null,
+                                   created_at timestamp default NOW(),
+                                   updated_at timestamp default NOW()
+            );
+
+            create table users_roles (
+                                         user_id    varchar(32) not null references users (id),
+                                         role_id    varchar(32) not null references roles (id),
+                                         created_at timestamp default NOW(),
+                                         updated_at timestamp default NOW(),
+                                         primary key (user_id, role_id)
+            );
+
+            insert into roles (id, name)
+            values ('bfe3b32ab72d4735925e6a467f0e3820', 'ROLE_USER'),
+                   ('cfcce794c7b04457b11e299a579219b6', 'ROLE_ADMIN');
+
+            insert into users (id, username, password, email)
+            values ('8fabad8a10eb4d7eb4daefd3189aadef',
+                     'bob',
+                    '$2a$04$Fx/SX9.BAvtPlMyIIqqFx.hLY2Xp8nnhpzvEEVINvVpwIPbA3v/.i',
+                     'bob_johnson@gmail.com'),
+                   ('5dcfce22ae08413b99690826e7d45254',
+                    'john',
+                     '$2a$04$Fx/SX9.BAvtPlMyIIqqFx.hLY2Xp8nnhpzvEEVINvVpwIPbA3v/.i',
+                     'john_johnson@gmail.com');
+
+            insert into users_roles (user_id, role_id)
+            values ('8fabad8a10eb4d7eb4daefd3189aadef', 'bfe3b32ab72d4735925e6a467f0e3820'),
+                   ('5dcfce22ae08413b99690826e7d45254', 'cfcce794c7b04457b11e299a579219b6');
+        </sql>
+    </changeSet>
+</databaseChangeLog>
