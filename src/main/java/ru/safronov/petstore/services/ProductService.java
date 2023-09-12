@@ -5,6 +5,8 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 import ru.safronov.petstore.models.Product;
 import ru.safronov.petstore.repositories.ProductRepository;
+import ru.safronov.petstore.services.dto.ProductDto;
+import ru.safronov.petstore.services.mapper.ProductMapper;
 
 import java.util.List;
 import java.util.Optional;
@@ -13,13 +15,17 @@ import java.util.Optional;
 @RequiredArgsConstructor
 public class ProductService {
     private final ProductRepository productRepository;
-    public List<Product> findAll() {
-        return productRepository.findAll();
+    private final ProductMapper productMapper;
+
+    public List<ProductDto> findAll() {
+        return productRepository.findAll().stream().map(productMapper::toDto).toList();
     }
 
     @Transactional
-    public Product create(Product product) {
-        return productRepository.save(product);
+    public ProductDto create(ProductDto productDto) {
+        Product product = productRepository.save(productMapper.toEntity(productDto));
+
+        return productMapper.toDto(product);
     }
 
     @Transactional

@@ -12,20 +12,20 @@ import java.util.List;
 @Builder
 @NoArgsConstructor
 @AllArgsConstructor
-public class ProductDto {
+public class CategoryDto {
     protected String id;
-    protected String title;
-    protected BigDecimal price;
-    protected List<CategoryProductDto> category;
+    protected String name;
+    private String ident;
+    private List<ProductCategoryDto> products;
 
     @Data
     @Builder
     @NoArgsConstructor
     @AllArgsConstructor
-    public static class CategoryProductDto {
-        protected String id;
-        protected String name;
-        private String ident;
+    public static class ProductCategoryDto {
+        private String id;
+        private String title;
+        private BigDecimal price;
     }
 
 }

@@ -1,0 +1,81 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<databaseChangeLog
+        xmlns="http://www.liquibase.org/xml/ns/dbchangelog"
+        xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+        xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-3.8.xsd">
+
+    <changeSet id="20230911-01-add_category" author="safronov">
+        <sql>
+            create table product_category
+            (
+                id         varchar(32) primary key,
+                name       varchar(64) not null,
+                ident      varchar(32),
+                created_at timestamp default NOW(),
+                updated_at timestamp default NOW()
+            );
+
+            INSERT INTO product_category (id, name, ident)
+            VALUES (REPLACE(CAST(gen_random_uuid() AS VARCHAR), '-', ''),
+                    'Кухонная утварь', 'cooking_utensils'),
+                   (REPLACE(CAST(gen_random_uuid() AS VARCHAR), '-', ''), 'Предметы для сервировки',
+                    'serving_items'),
+                   (REPLACE(CAST(gen_random_uuid() AS VARCHAR), '-', ''), 'Столовые приборы',
+                    'kitchen_appliances'),
+                   (REPLACE(CAST(gen_random_uuid() AS VARCHAR), '-', ''),
+                    'Хранение продуктов', 'kitchen_storage'),
+                   (REPLACE(CAST(gen_random_uuid() AS VARCHAR), '-', ''), 'Прочие аксессуары',
+                    'kitchen_other');
+
+
+            CREATE TABLE product_category_link
+            (
+                product_id  VARCHAR(32) NOT NULL,
+                category_id VARCHAR(32) NOT NULL,
+                PRIMARY KEY (product_id, category_id),
+                FOREIGN KEY (product_id) REFERENCES product (id),
+                FOREIGN KEY (category_id) REFERENCES product_category (id)
+            );
+
+            INSERT INTO product_category_link (product_id, category_id)
+            SELECT p.id, pc.id
+            FROM product p,
+                 product_category pc
+            WHERE p.title IN ('Сковорода', 'Кастрюля', 'Сотейник', 'Крышка для кастрюли')
+              AND pc.name = 'Кухонная утварь';
+
+            INSERT INTO product_category_link (product_id, category_id)
+            SELECT p.id, pc.id
+            FROM product p,
+                 product_category pc
+            WHERE p.title IN
+                  ('Нож', 'Ложка')
+              AND pc.name = 'Столовые приборы';
+
+            INSERT INTO product_category_link (product_id, category_id)
+            SELECT p.id, pc.id
+            FROM product p,
+                 product_category pc
+            WHERE p.title IN
+                  ('Тарелка', 'Чашка', 'Бокал',
+                   'Миска')
+              AND pc.name = 'Столовые приборы';
+
+            INSERT INTO product_category_link (product_id, category_id)
+            SELECT p.id, pc.id
+            FROM product p,
+                 product_category pc
+            WHERE p.title IN ('Контейнер для хранения', 'Термос', 'Бутылка для воды')
+              AND pc.name = 'Хранение продуктов';
+
+            INSERT INTO product_category_link (product_id, category_id)
+            SELECT p.id, pc.id
+            FROM product p,
+                 product_category pc
+            WHERE p.title IN ('Терка', 'Салфетки', 'Сито', 'Мерная чаша', 'Доска для нарезки', 'Венчик')
+              AND pc.name = 'Прочие аксессуары';
+        </sql>
+
+    </changeSet>
+</databaseChangeLog>

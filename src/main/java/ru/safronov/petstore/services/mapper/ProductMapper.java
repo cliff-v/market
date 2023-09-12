@@ -5,6 +5,6 @@ import ru.safronov.petstore.services.dto.ProductDto;
 import ru.safronov.petstore.models.Product;
 
 @Mapper(componentModel = "spring")
-public interface ProductMapper extends DTOMapper<ProductDto, Product> {
+public interface ProductMapper extends EntityMapper<ProductDto, Product> {
 
 }
