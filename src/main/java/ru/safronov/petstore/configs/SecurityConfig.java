@@ -27,26 +27,22 @@ public class SecurityConfig  {
 
     @Bean
     public SecurityFilterChain securityFilterChain(HttpSecurity http) throws Exception {
-        http.authorizeHttpRequests((request) ->
+        return http.authorizeHttpRequests((request) ->
                 ((AuthorizedUrl)request
                         .requestMatchers("/auth").permitAll()
                         .requestMatchers("/api/**").authenticated()
-                        .requestMatchers("/user/**").hasRole("USER")
-                        .requestMatchers("/admin/**").hasRole("ADMIN")
+                        .requestMatchers("/temp_user/**").hasRole("USER")
+                        .requestMatchers("/temp_admin/**").hasRole("ADMIN")
                         .anyRequest()).authenticated()
 
-        );
-
-        http
+        )
                 .csrf(AbstractHttpConfigurer::disable)
                 .cors(AbstractHttpConfigurer::disable)
-                .sessionManagement(httpSecuritySessionManagementConfigurer -> httpSecuritySessionManagementConfigurer.sessionCreationPolicy(SessionCreationPolicy.STATELESS))
+                .sessionManagement(httpSecuritySessionManagementConfigurer ->
+                        httpSecuritySessionManagementConfigurer.sessionCreationPolicy(SessionCreationPolicy.STATELESS))
                 .exceptionHandling(exceptionHandling ->
-                        exceptionHandling.authenticationEntryPoint(new HttpStatusEntryPoint(HttpStatus.UNAUTHORIZED))
-                )
-                .addFilterBefore(jwtRequestFilter, UsernamePasswordAuthenticationFilter.class);
-
-        return http.build();
+                        exceptionHandling.authenticationEntryPoint(new HttpStatusEntryPoint(HttpStatus.UNAUTHORIZED)))
+                .addFilterBefore(jwtRequestFilter, UsernamePasswordAuthenticationFilter.class).build();
     }
 
     @Bean
